@@ -1,0 +1,80 @@
+name: Release Extension
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag'
+        required: true
+        default: 'latest'
+      prerelease:
+        description: 'Is this a pre-release?'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 10
+
+    - name: Install dependencies
+      run: pnpm install
+
+    - name: Auto-increment version
+      id: increment-version
+      run: |
+       if [ -n "${{ github.event.inputs.prerelease }}" ]; then
+        pnpm run version -t @snow/extension --pre ${{ github.event.inputs.tag }}
+       else
+        pnpm run version -t @snow/extension
+       fi
+
+    - name: Build extension
+      run: cd packages/extension && pnpm run pack
+
+    - name: Get package version
+      id: get-version
+      run: echo "version=$(node -p "require('./packages/extension/package.json').version")" >> $GITHUB_OUTPUT
+
+    - name: Update extension version
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add .
+        git commit -m "chore: update extension version"
+        git push origin main
+
+    - name: Upload release artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: snow-extension-${{ steps.get-version.outputs.version }}
+        path: packages/extension/extension_output/**
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v${{ steps.get-version.outputs.version }}
+        name: Snow Extension v${{ steps.get-version.outputs.version }}
+        prerelease: ${{ github.event.inputs.prerelease }}
+        files: packages/extension/extension_output/**
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

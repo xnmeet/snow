@@ -1,0 +1,5 @@
+{
+  "$schema": "https://unpkg.com/evem-core@0.1.5/src/schemas/config.schema.json",
+  "baseBranch": "main",
+  "access": "public"
+}

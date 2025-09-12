@@ -1,0 +1,10 @@
+{
+  "packageName": "@snow/extension",
+  "changes": [
+    {
+      "packageName": "@snow/extension",
+      "comment": "setup snow",
+      "type": "patch"
+    }
+  ]
+}
