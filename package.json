@@ -1,0 +1,23 @@
+{
+  "name": "snow",
+  "version": "1.0.0",
+  "description": "Browser extension for E2E test case recording via chat interface",
+  "type": "module",
+  "scripts": {
+    "lint": "biome lint",
+    "format": "biome format --write",
+    "build": "pnpm --filter @snow/extension build",
+    "dev": "pnpm --filter @snow/extension dev"
+  },
+  "workspaces": ["packages/*"],
+  "keywords": ["browser-extension", "e2e", "testing", "midscene"],
+  "license": "MIT",
+  "devDependencies": {
+    "@biomejs/biome": "1",
+    "@types/chrome": "^0.1.1",
+    "@types/node": "^24.1.0",
+    "@types/react": "^18.3.0",
+    "typescript": "^5.5.0",
+    "vitest": "^3.2.4"
+  }
+}
