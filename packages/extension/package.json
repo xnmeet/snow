@@ -1,6 +1,6 @@
 {
   "name": "@snow/extension",
-  "version": "0.0.2",
+  "version": "0.0.3-latest.0",
   "description": "Browser extension for E2E test case recording via chat interface",
   "type": "module",
   "scripts": {
@@ -14,7 +14,12 @@
     "test:run": "vitest run",
     "test:ui": "vitest --ui"
   },
-  "keywords": ["browser-extension", "e2e", "testing", "midscene"],
+  "keywords": [
+    "browser-extension",
+    "e2e",
+    "testing",
+    "midscene"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
