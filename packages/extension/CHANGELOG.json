@@ -1,0 +1,17 @@
+{
+  "name": "@snow/extension",
+  "entries": [
+    {
+      "version": "0.0.3",
+      "tag": "@snow/extension@0.0.3",
+      "date": "Mon, 15 Sep 2025 03:34:01 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "setup snow"
+          }
+        ]
+      }
+    }
+  ]
+}
