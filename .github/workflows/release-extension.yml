@@ -42,7 +42,7 @@ jobs:
     - name: Auto-increment version
       id: increment-version
       run: |
-       if [ -n "${{ github.event.inputs.prerelease }}" ]; then
+       if [ "${{ github.event.inputs.prerelease }}" = "true" ]; then
         pnpm run version -t @snow/extension --pre ${{ github.event.inputs.tag }}
        else
         pnpm run version -t @snow/extension
