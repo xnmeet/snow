@@ -1,6 +1,6 @@
 {
   "name": "@snow/extension",
-  "version": "0.0.3-latest.0",
+  "version": "0.0.3-pr.0",
   "description": "Browser extension for E2E test case recording via chat interface",
   "type": "module",
   "scripts": {
